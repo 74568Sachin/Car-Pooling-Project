@@ -33,6 +33,35 @@ app.listen(9001,function(){
 
 })
 
+app.post('/registerPassenger', function (req, res) {
+
+  var username = req.body.pusername;
+  var name = req.body.pname;
+  var password = req.body.ppassword;
+  var email = req.body.pemail;
+  var dateOfBirth = req.body.pdateOfBirth;
+  var gender = req.body.pgender;
+  var phoneNumber = req.body.pphoneNumber;
+  var address = req.body.paddress;
+
+  
+
+  var query = "CALL InsertPassenger(?, ?, ?, ?, ?, ?, ?, ?)";
+
+  con.query(query, [username, name, password, email, dateOfBirth, gender, address, phoneNumber], function (err) {
+
+      if (!err) {
+          res.send('Passenger inserted successfully');
+      } else {
+          console.error('Error:', err);
+          res.status(500).send('Internal server error');
+      }
+
+  });
+
+});
+
+
 
 app.post('/insertLogin',function(req,res){
 
